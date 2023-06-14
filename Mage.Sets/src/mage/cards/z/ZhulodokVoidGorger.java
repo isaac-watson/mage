@@ -3,12 +3,12 @@ package mage.cards.z;
 import mage.MageInt;
 import mage.abilities.Ability;
 import mage.abilities.common.SimpleStaticAbility;
-import mage.abilities.effects.common.continuous.GainAbilityControlledSpellsEffect;
+import mage.abilities.effects.GainAbilitySpellsEffect;
 import mage.abilities.keyword.CascadeAbility;
 import mage.cards.CardImpl;
 import mage.cards.CardSetInfo;
 import mage.constants.*;
-import mage.filter.FilterCard;
+import mage.filter.FilterObject;
 import mage.filter.predicate.card.CastFromZonePredicate;
 import mage.filter.predicate.mageobject.ColorlessPredicate;
 import mage.filter.predicate.mageobject.ManaValuePredicate;
@@ -20,7 +20,7 @@ import java.util.UUID;
  */
 public final class ZhulodokVoidGorger extends CardImpl {
 
-    private static final FilterCard filter = new FilterCard();
+    private static final FilterObject filter = new FilterObject("Colorless spells you cast from your hand with mana value 7 or greater");
 
     static {
         filter.add(ColorlessPredicate.instance);
@@ -37,9 +37,9 @@ public final class ZhulodokVoidGorger extends CardImpl {
         this.toughness = new MageInt(4);
 
         // Colorless spells you cast from your hand with mana value 7 or greater have "Cascade, cascade."
-        Ability ability = new SimpleStaticAbility(new GainAbilityControlledSpellsEffect(new CascadeAbility(), filter)
+        Ability ability = new SimpleStaticAbility(new GainAbilitySpellsEffect(new CascadeAbility(false), filter)
                 .setText("colorless spells you cast from your hand with mana value 7"));
-        ability.addEffect(new GainAbilityControlledSpellsEffect(new CascadeAbility(), filter)
+        ability.addEffect(new GainAbilitySpellsEffect(new CascadeAbility(false), filter)
                 .setText("or greater have \"Cascade, cascade.\""));
         this.addAbility(ability);
     }
